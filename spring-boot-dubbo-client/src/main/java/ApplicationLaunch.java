@@ -17,9 +17,9 @@ import org.springframework.context.annotation.Bean;
 @EnableAutoConfiguration
 public class ApplicationLaunch {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(ApplicationLaunch.class);
 
-    @Reference(version = "${demo.service.version}")
+    @Reference(version = "1.0.0", url = "dubbo://127.0.0.1:12345")
     private UserService userService;
 
     public static void main(String[] args) {
@@ -30,4 +30,5 @@ public class ApplicationLaunch {
     public ApplicationRunner runner() {
         return args -> logger.info(userService.get("binbin"));
     }
+
 }
