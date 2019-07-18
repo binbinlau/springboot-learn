@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: my-dubbo-client
+
+demo:
+  service:
+    version: 1.0.0
+
+zookeeper:
+    port: 2181
+
+dubbo:
+  registry:
+    address: zookeeper://192.168.1.126:${zookeeper.port}
+    file: E:/MyProject/springboot-learn/dubbo.cache
+#debug: true

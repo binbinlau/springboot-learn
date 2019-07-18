@@ -1,9 +1,8 @@
 package binbinlau.springboot.dubbo.serviceimpl;
 
+import binbinlau.springboot.api.service.UserService;
 import binbinlau.springboot.dubbo.entity.User;
-import binbinlau.springboot.dubbo.service.UserService;
-import com.alibaba.dubbo.config.annotation.Service;
-import org.springframework.stereotype.Component;
+import org.apache.dubbo.config.annotation.Service;
 
 /**
  *  
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Component;
  * @return 
  **/
 @Service(version = "1.0.0")
-@Component
 public class UserServiceImpl implements UserService {
 
     @Override
@@ -21,6 +19,5 @@ public class UserServiceImpl implements UserService {
         User user = new User("uid1111111111111111111", name, 20);
         return user.toString();
     }
-
 
 }
