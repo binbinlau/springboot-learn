@@ -1,6 +1,8 @@
+package binbinlau.springboot;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
 /**
@@ -10,7 +12,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  * @Param
  * @return
  **/
-@EnableAutoConfiguration
+@SpringBootApplication
 public class ApplicationLaunch {
     protected final static Log logger = LogFactory.getLog(ApplicationLaunch.class);
 
