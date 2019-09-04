@@ -48,10 +48,10 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
-                "uid='" + uid + '\'' +
-                ", name='" + name + '\'' +
-                ", age=" + age +
+        return "{" +
+                "\"uid\" : \"" + uid + '\"' +
+                ", \"name\" : \"" + name + '\"' +
+                ", \"age\" : " + age +
                 '}';
     }
 }
