@@ -1,23 +1,19 @@
 package binbinlau.springboot.jwt;
 
+import binbinlau.springboot.oauth2.entity.MyClientDetails;
+import binbinlau.springboot.oauth2.service.AccessTokenRepository;
+import binbinlau.springboot.oauth2.service.RefreshTokenRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
-
-import javax.sql.DataSource;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.SQLFeatureNotSupportedException;
-import java.util.logging.Logger;
-
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 
 /**
  *  JwtAuthServer
@@ -30,44 +26,38 @@ import java.util.logging.Logger;
 @EnableAuthorizationServer
 public class JwtAuthServer extends AuthorizationServerConfigurerAdapter {
 
+    @Autowired
+    private TokenStore tokenStore;
+    @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private MyClientDetailsService myClientDetailsService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    public JwtAuthServer(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        this.authenticationManager = authenticationConfiguration.getAuthenticationManager();
-    }
-
-    @Bean
-    public JwtAccessTokenConverter accessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey("test-secret");
-        return converter;
-    }
-
-    @Bean
-    public JwtTokenStore jwtTokenStore() {
-        return new JwtTokenStore(accessTokenConverter());
+    @Override
+    public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
+//        configurer
+//                .inMemory()
+//                .withClient("clientapp")
+//                .secret("112233")
+//                .authorizedGrantTypes("password", "authorization_code", "refresh_token")
+//                .scopes("read", "write")
+//                .accessTokenValiditySeconds(60 * 60).
+//                refreshTokenValiditySeconds(6 * 60 * 60);
+        configurer.withClientDetails(myClientDetailsService);
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints
-                .authenticationManager(this.authenticationManager)
-                .tokenStore(jwtTokenStore())
-                .accessTokenConverter(accessTokenConverter());
+        endpoints.tokenStore(tokenStore)
+                .authenticationManager(authenticationManager);
     }
 
     @Override
-    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        // @formatter:off
-        clients.inMemory()
-                .withClient("clientapp")
-                .secret("{noop}112233")
-                .scopes("read_userinfo")
-                .authorizedGrantTypes(
-                        "password",
-                        "authorization_code",
-                        "refresh_token");
-        // @formatter:on
-//        clients.jdbc();
+    public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+        oauthServer.tokenKeyAccess("permitAll()")
+                .checkTokenAccess("isAuthenticated()");
     }
+
 }
