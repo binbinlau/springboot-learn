@@ -1,6 +1,7 @@
 package binbinlau.springboot.jwt;
 
 import binbinlau.springboot.oauth2.entity.User;
+import binbinlau.springboot.oauth2.enums.EStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -49,6 +50,6 @@ public class MyUserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.getStatus() == 1;
+        return user.getStatus() == EStatus.Enable;
     }
 }
