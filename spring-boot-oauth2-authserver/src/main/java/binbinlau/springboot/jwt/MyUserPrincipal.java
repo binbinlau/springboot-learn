@@ -33,21 +33,25 @@ public class MyUserPrincipal implements UserDetails {
         return user.getUsername();
     }
 
+    //用户账号过期，要重新请求令牌
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    //用户账号被锁定，到账号中心解锁
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    //信任凭证过期
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    //用户是否是可用状态
     @Override
     public boolean isEnabled() {
         return user.getStatus() == EStatus.Enable;

@@ -20,6 +20,8 @@ public class  User extends BaseEntity{
     @Column(nullable = false, unique = true)
     private String username;
     private String password;
+    private boolean expired;
+    private boolean locked;
 
     public long getId() {
         return id;
@@ -43,5 +45,21 @@ public class  User extends BaseEntity{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isExpired() {
+        return expired;
+    }
+
+    public void setExpired(boolean expired) {
+        this.expired = expired;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        locked = locked;
     }
 }

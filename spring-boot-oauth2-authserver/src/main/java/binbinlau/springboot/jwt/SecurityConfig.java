@@ -15,7 +15,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -36,11 +35,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
 
-//    @Bean
-//    public TokenStore tokenStore() {
-//        return new InMemoryTokenStore();
-//    }
-
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -55,7 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure( WebSecurity web ) throws Exception {
-        web.ignoring().antMatchers( HttpMethod.OPTIONS, "/**" );
+        web.ignoring().antMatchers( HttpMethod.OPTIONS, "/**" )
+                .and().ignoring().antMatchers("/index**");
     }
 
     @Override

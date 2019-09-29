@@ -1,10 +1,6 @@
 package binbinlau.springboot.jwt;
 
-import binbinlau.springboot.oauth2.entity.MyClientDetails;
-import binbinlau.springboot.oauth2.service.AccessTokenRepository;
-import binbinlau.springboot.oauth2.service.RefreshTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,19 +28,9 @@ public class JwtAuthServer extends AuthorizationServerConfigurerAdapter {
     private AuthenticationManager authenticationManager;
     @Autowired
     private MyClientDetailsService myClientDetailsService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
-//        configurer
-//                .inMemory()
-//                .withClient("clientapp")
-//                .secret("112233")
-//                .authorizedGrantTypes("password", "authorization_code", "refresh_token")
-//                .scopes("read", "write")
-//                .accessTokenValiditySeconds(60 * 60).
-//                refreshTokenValiditySeconds(6 * 60 * 60);
         configurer.withClientDetails(myClientDetailsService);
     }
 
