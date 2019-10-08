@@ -1,4 +1,4 @@
-package binbinlau.springboot.jwt;
+package binbinlau.springboot.converter;
 
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;

@@ -1,6 +1,6 @@
 package binbinlau.springboot.oauth2.entity;
 
-import binbinlau.springboot.jwt.SerializableObjectConverter;
+import binbinlau.springboot.converter.SerializableObjectConverter;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 

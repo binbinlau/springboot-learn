@@ -1,4 +1,4 @@
-package binbinlau.springboot.jwt;
+package binbinlau.springboot.config;
 
 import binbinlau.springboot.oauth2.service.AccessTokenRepository;
 import binbinlau.springboot.oauth2.service.RefreshTokenRepository;
@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure( WebSecurity web ) throws Exception {
+    public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers( HttpMethod.OPTIONS, "/**" )
                 .and().ignoring().antMatchers("/index**", "/register"); //以配置文件的形式配置出来
     }

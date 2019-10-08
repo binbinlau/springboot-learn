@@ -1,4 +1,4 @@
-package binbinlau.springboot.jwt;
+package binbinlau.springboot.config;
 
 import binbinlau.springboot.oauth2.entity.User;
 import binbinlau.springboot.oauth2.service.UserRepository;
