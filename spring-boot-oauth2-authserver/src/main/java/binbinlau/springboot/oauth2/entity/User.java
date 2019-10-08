@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * @Author LiuBin
@@ -18,10 +20,11 @@ public class  User extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column(nullable = false, unique = true)
-    private String username;
-    private String password;
-    private boolean expired;
-    private boolean locked;
+    private String username; //用户名
+    private String password; //用户密码
+    private boolean expired; //用户授权是否过期
+    private boolean locked; //用户是否被锁定
+    private String role; //用户角色，使用逗号分隔，例如：USER,ADMIN...
 
     public long getId() {
         return id;
@@ -61,5 +64,18 @@ public class  User extends BaseEntity{
 
     public void setLocked(boolean locked) {
         locked = locked;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    // 判断该用户是否具有某角色
+    public boolean hasRole(String r) {
+        return Arrays.stream(this.role.split(",")).anyMatch(s -> Objects.equals(s, r));
     }
 }

@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure( WebSecurity web ) throws Exception {
         web.ignoring().antMatchers( HttpMethod.OPTIONS, "/**" )
-                .and().ignoring().antMatchers("/index**");
+                .and().ignoring().antMatchers("/index**", "/register"); //以配置文件的形式配置出来
     }
 
     @Override
